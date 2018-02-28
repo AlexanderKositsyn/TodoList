@@ -1,0 +1,20 @@
+.item {
+  padding: 20px;
+  background-color: darkgrey;
+  border-radius: 20px;
+  display: flex;
+}
+
+.text {
+  font-size: 20px;
+}
+
+.text:hover {
+  background-color: grey;
+}
+
+.button {
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-left: auto;
+}

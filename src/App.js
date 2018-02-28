@@ -1,3 +1,5 @@
+import classNames from './App.css';
+
 import React from 'react';
 import List from './List';
 
@@ -86,13 +88,16 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className="todo">
+      <div className={classNames.todo}>
         <input
+          className={classNames.input}
           onChange={this.handlerInputTextTodoItem}
           value={this.state.inputValue}
           type="text"
         />
-        <button onClick={this.handlerAddTodoItem}>Добавить</button>
+        <button className={classNames.button} onClick={this.handlerAddTodoItem}>
+          Добавить
+        </button>
         <List
           items={this.state.todos}
           handlerDeleteAndEdit={this.handlerDeleteAndEdit}

@@ -1,14 +1,16 @@
+import classNames from './ListItem.css';
+
 import React from 'react';
 
 export default function ListItem(props) {
   return (
-    <li data-id={props.id}>
+    <li data-id={props.id} className={classNames.item}>
       {props.edit ? (
         <textarea defaultValue={props.text} />
       ) : (
-        <span>{props.text}</span>
+        <span className={classNames.text}>{props.text}</span>
       )}
-      <button>Delete</button>
+      <button className={classNames.button}>Delete</button>
     </li>
   );
 }
