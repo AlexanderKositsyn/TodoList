@@ -3,11 +3,18 @@ import ListItem from './ListItem';
 
 export default class List extends React.PureComponent {
   render() {
-    console.log(this.props);
     return (
-      <ul onClick={this.props.onClick}>
+      <ul
+        onClick={this.props.handlerDeleteAndEdit}
+        onBlur={this.props.handlerOnBlur}
+      >
         {this.props.items.map(item => (
-          <ListItem text={item.text} key={item.id} id={item.id} />
+          <ListItem
+            text={item.text}
+            key={item.id}
+            id={item.id}
+            edit={item.edit}
+          />
         ))}
       </ul>
     );
