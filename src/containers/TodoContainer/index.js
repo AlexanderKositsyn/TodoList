@@ -139,7 +139,6 @@ export default class TodoContainer extends React.Component {
   };
   //функция которая проверяет соответвует ли item фильтру
   isDislpay = (text, priority) => {
-    // если и то и то верны, то функция вернет true
     // может тут case использовать?
     let isTextTrue = text => {
       return text.indexOf(this.state.inputValueFilter) >= 0;
@@ -156,7 +155,6 @@ export default class TodoContainer extends React.Component {
   };
 
   render() {
-    console.log(this);
     return (
       <Todo
         todos={this.state.todos}
