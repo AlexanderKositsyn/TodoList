@@ -5,10 +5,13 @@ import Todo from 'components/Todo';
 export default class TodoContainer extends React.Component {
   constructor(props) {
     super(props);
+    // state можно вынести в отдельный json и потом его парсить сюда
     this.state = {
       todos: [],
       inputValue: '',
+      inputValueFilter: '',
       isPriporityOpen: false,
+      isFilterOpen: false,
     };
   }
 
@@ -22,10 +25,15 @@ export default class TodoContainer extends React.Component {
     this.setState({ inputValue: e.target.value });
   };
 
+  // обработчик при изменении инпута
+  handlerInputValueFilter = e => {
+    this.setState({ inputValueFilter: e.target.value });
+  };
+
   //обработчик добавления элемента
   handlerAddTodoItem = () => {
     // откроем сначала popup выбора приоритета
-    let promise = new Promise((res, rej) => {
+    this.promise = new Promise((res, rej) => {
       // проверим не пустой ли инпут
       if (this.state.inputValue === '') return;
       this.setState(
@@ -37,24 +45,28 @@ export default class TodoContainer extends React.Component {
     });
 
     //потом ждем пока пользователь нажмет на одну из кнопок
-    promise.then(this.handlerPriorityValue);
+    this.promise.then(this.handlerPriorityValue);
   };
 
+  // не понятно почему не работает вот так promise.then(this.handlerPriorityValue).then(this.setNewItem)
   handlerPriorityValue = e => {
-    return new Promise((res, rej) => {
-      if (
-        e !== undefined &&
-        (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL')
-      ) {
+    this.promise = new Promise((res, rej) => {
+      if (e !== undefined && e.target.tagName === 'INPUT') {
         res(e.target.value);
       }
     }).then(this.setNewItem);
   };
 
+  //обработчик на открытие фильтра
+  handlerOpenFilter = () => {
+    this.setState({
+      isFilterOpen: true,
+    });
+  };
+
   setNewItem = checkboxValue => {
     // добавим новую туду в массив с туду итемами
     // и отчищаем инпут
-
     this.setState({
       todos: [
         ...this.state.todos,
@@ -123,12 +135,16 @@ export default class TodoContainer extends React.Component {
       <Todo
         todos={this.state.todos}
         inputValue={this.state.inputValue}
+        inputValueFilter={this.state.inputValueFilter}
         isPriporityOpen={this.state.isPriporityOpen}
+        isFilterOpen={this.state.isFilterOpen}
         handlerPriorityValue={this.handlerPriorityValue}
         handlerInputTextTodoItem={this.handlerInputTextTodoItem}
+        handlerInputValueFilter={this.handlerInputValueFilter}
         handlerAddTodoItem={this.handlerAddTodoItem}
         handlerDeleteAndEdit={this.handlerDeleteAndEdit}
         handlerOnBlur={this.handlerOnBlur}
+        handlerOpenFilter={this.handlerOpenFilter}
       />
     );
   }

@@ -17,6 +17,7 @@ export default function List(props) {
           id={item.id}
           edit={item.edit}
           priority={item.priority}
+          inputValueFilter={props.inputValueFilter}
         />
       ))}
     </ul>

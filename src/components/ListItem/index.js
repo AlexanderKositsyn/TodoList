@@ -3,7 +3,8 @@ import classNames from './index.css';
 import React from 'react';
 
 export default function ListItem(props) {
-  return (
+  return props.text.indexOf(props.inputValueFilter) < 0 &&
+    props.inputValueFilter.length ? null : (
     <li
       data-id={props.id}
       className={classNames.item}

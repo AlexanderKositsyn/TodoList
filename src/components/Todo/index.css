@@ -1,3 +1,5 @@
 .todo {
   background-color: whitesmoke;
+  display: flex;
+  flex-wrap: wrap;
 }
