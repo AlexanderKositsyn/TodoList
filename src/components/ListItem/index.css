@@ -3,6 +3,28 @@
   background-color: darkgrey;
   border-radius: 20px;
   display: flex;
+  position: relative;
+}
+
+.item:after {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 5px;
+  width: 10px;
+  height: 10px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+}
+
+.item[data-priority="1"]:after {
+  background-color: red;
+}
+.item[data-priority="2"]:after {
+  background-color: yellow;
+}
+.item[data-priority="3"]:after {
+  background-color: green;
 }
 
 .text {

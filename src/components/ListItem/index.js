@@ -4,7 +4,11 @@ import React from 'react';
 
 export default function ListItem(props) {
   return (
-    <li data-id={props.id} className={classNames.item}>
+    <li
+      data-id={props.id}
+      className={classNames.item}
+      data-priority={props.priority}
+    >
       {props.edit ? (
         <textarea defaultValue={props.text} />
       ) : (

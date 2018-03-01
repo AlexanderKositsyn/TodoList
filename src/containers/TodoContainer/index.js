@@ -8,6 +8,7 @@ export default class TodoContainer extends React.Component {
     this.state = {
       todos: [],
       inputValue: '',
+      isPriporityOpen: false,
     };
   }
 
@@ -23,17 +24,49 @@ export default class TodoContainer extends React.Component {
 
   //обработчик добавления элемента
   handlerAddTodoItem = () => {
-    // проверим не пустой ли инпут
-    if (this.state.inputValue === '') return;
-    ++this.counter;
+    // откроем сначала popup выбора приоритета
+    let promise = new Promise((res, rej) => {
+      // проверим не пустой ли инпут
+      if (this.state.inputValue === '') return;
+      this.setState(
+        {
+          isPriporityOpen: true,
+        },
+        res,
+      );
+    });
+
+    //потом ждем пока пользователь нажмет на одну из кнопок
+    promise.then(this.handlerPriorityValue);
+  };
+
+  handlerPriorityValue = e => {
+    return new Promise((res, rej) => {
+      if (
+        e !== undefined &&
+        (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL')
+      ) {
+        res(e.target.value);
+      }
+    }).then(this.setNewItem);
+  };
+
+  setNewItem = checkboxValue => {
     // добавим новую туду в массив с туду итемами
     // и отчищаем инпут
+
     this.setState({
       todos: [
         ...this.state.todos,
-        { text: this.state.inputValue, id: this.counter, edit: false },
+        {
+          text: this.state.inputValue,
+          id: ++this.counter,
+          edit: false,
+          priority: checkboxValue,
+        },
       ],
       inputValue: '',
+      isPriporityOpen: false,
     });
   };
 
@@ -90,6 +123,8 @@ export default class TodoContainer extends React.Component {
       <Todo
         todos={this.state.todos}
         inputValue={this.state.inputValue}
+        isPriporityOpen={this.state.isPriporityOpen}
+        handlerPriorityValue={this.handlerPriorityValue}
         handlerInputTextTodoItem={this.handlerInputTextTodoItem}
         handlerAddTodoItem={this.handlerAddTodoItem}
         handlerDeleteAndEdit={this.handlerDeleteAndEdit}
