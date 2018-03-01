@@ -1,9 +1,8 @@
-import classNames from './App.css';
-
 import React from 'react';
-import List from './List';
 
-export default class App extends React.Component {
+import Todo from 'components/Todo';
+
+export default class TodoContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -88,22 +87,14 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className={classNames.todo}>
-        <input
-          className={classNames.input}
-          onChange={this.handlerInputTextTodoItem}
-          value={this.state.inputValue}
-          type="text"
-        />
-        <button className={classNames.button} onClick={this.handlerAddTodoItem}>
-          Добавить
-        </button>
-        <List
-          items={this.state.todos}
-          handlerDeleteAndEdit={this.handlerDeleteAndEdit}
-          handlerOnBlur={this.handlerOnBlur}
-        />
-      </div>
+      <Todo
+        todos={this.state.todos}
+        inputValue={this.state.inputValue}
+        handlerInputTextTodoItem={this.handlerInputTextTodoItem}
+        handlerAddTodoItem={this.handlerAddTodoItem}
+        handlerDeleteAndEdit={this.handlerDeleteAndEdit}
+        handlerOnBlur={this.handlerOnBlur}
+      />
     );
   }
 }

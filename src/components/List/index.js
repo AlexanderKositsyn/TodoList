@@ -1,7 +1,7 @@
-import classNames from './List.css';
+import classNames from './index.css';
 
 import React from 'react';
-import ListItem from './ListItem';
+import ListItem from '../ListItem';
 
 export default class List extends React.PureComponent {
   render() {

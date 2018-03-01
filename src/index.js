@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import TodoContainer from 'containers/TodoContainer';
 
 const MOUNT_NODE = document.getElementById('app');
 
-ReactDOM.render(<App />, MOUNT_NODE);
+ReactDOM.render(<TodoContainer />, MOUNT_NODE);
