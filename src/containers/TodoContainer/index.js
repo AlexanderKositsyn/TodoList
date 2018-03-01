@@ -10,6 +10,7 @@ export default class TodoContainer extends React.Component {
       todos: [],
       inputValue: '',
       inputValueFilter: '',
+      radioPriorityFilter: undefined,
       isPriporityOpen: false,
       isFilterOpen: false,
     };
@@ -28,6 +29,13 @@ export default class TodoContainer extends React.Component {
   // обработчик при изменении инпута
   handlerInputValueFilter = e => {
     this.setState({ inputValueFilter: e.target.value });
+  };
+
+  // обработчик при изменении инпута
+  handlerRadioPriotityFilter = e => {
+    if (e.target.tagName === 'INPUT') {
+      this.setState({ radioPriorityFilter: e.target.value });
+    }
   };
 
   //обработчик добавления элемента
@@ -129,18 +137,37 @@ export default class TodoContainer extends React.Component {
       });
     }
   };
+  //функция которая проверяет соответвует ли item фильтру
+  isDislpay = (text, priority) => {
+    // если и то и то верны, то функция вернет true
+    // может тут case использовать?
+    let isTextTrue = text => {
+      return text.indexOf(this.state.inputValueFilter) >= 0;
+    };
+    let isPriorityTrue = priority => {
+      return parseInt(priority) === parseInt(this.state.radioPriorityFilter);
+    };
+
+    if (this.state.radioPriorityFilter) {
+      return isTextTrue(text) && isPriorityTrue(priority);
+    } else {
+      return isTextTrue(text);
+    }
+  };
 
   render() {
+    console.log(this);
     return (
       <Todo
         todos={this.state.todos}
         inputValue={this.state.inputValue}
-        inputValueFilter={this.state.inputValueFilter}
+        isDislpay={this.isDislpay}
         isPriporityOpen={this.state.isPriporityOpen}
         isFilterOpen={this.state.isFilterOpen}
         handlerPriorityValue={this.handlerPriorityValue}
         handlerInputTextTodoItem={this.handlerInputTextTodoItem}
         handlerInputValueFilter={this.handlerInputValueFilter}
+        handlerRadioPriotityFilter={this.handlerRadioPriotityFilter}
         handlerAddTodoItem={this.handlerAddTodoItem}
         handlerDeleteAndEdit={this.handlerDeleteAndEdit}
         handlerOnBlur={this.handlerOnBlur}

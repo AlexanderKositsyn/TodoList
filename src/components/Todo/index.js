@@ -20,12 +20,13 @@ export default function Todo(props) {
         items={props.todos}
         handlerDeleteAndEdit={props.handlerDeleteAndEdit}
         handlerOnBlur={props.handlerOnBlur}
-        inputValueFilter={props.inputValueFilter}
+        isDislpay={props.isDislpay}
       />
       <TodoFilter
         isFilterOpen={props.isFilterOpen}
         handlerOpenFilter={props.handlerOpenFilter}
         handlerInputValueFilter={props.handlerInputValueFilter}
+        handlerRadioPriotityFilter={props.handlerRadioPriotityFilter}
       />
     </div>
   );

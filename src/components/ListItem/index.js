@@ -3,8 +3,7 @@ import classNames from './index.css';
 import React from 'react';
 
 export default function ListItem(props) {
-  return props.text.indexOf(props.inputValueFilter) < 0 &&
-    props.inputValueFilter.length ? null : (
+  return props.isDislpay(props.text, props.priority) ? (
     <li
       data-id={props.id}
       className={classNames.item}
@@ -17,5 +16,5 @@ export default function ListItem(props) {
       )}
       <button className={classNames.button}>Delete</button>
     </li>
-  );
+  ) : null;
 }

@@ -13,6 +13,18 @@ export default function TodoFilter(props) {
             value={props.inputValueFilter}
             onChange={props.handlerInputValueFilter}
           />
+          <div onClick={props.handlerRadioPriotityFilter}>
+            <div>Выберите приоритет задания</div>
+            <label>
+              1 <input type="radio" name="priority" value={1} />
+            </label>
+            <label>
+              2 <input type="radio" name="priority" value={2} />
+            </label>
+            <label>
+              3 <input type="radio" name="priority" value={3} />
+            </label>
+          </div>
         </div>
       ) : (
         <button>Открыть фильтер</button>
