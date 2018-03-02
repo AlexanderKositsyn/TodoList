@@ -15,7 +15,12 @@ export default function TodoHeader(props) {
         Добавить
       </button>
       {props.isPriporityOpen ? (
-        <div className={classNames.popup} onClick={props.handlerPriorityValue}>
+        <div
+          className={classNames.popup}
+          onClick={e => {
+            props.resolverPriority(e.target.value);
+          }}
+        >
           <div>Выберите приоритет задания</div>
           <label>
             1 <input type="checkbox" value={1} />

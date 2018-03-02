@@ -1,6 +1,6 @@
-import classNames from './index.css';
-
 import React from 'react';
+
+import classNames from './index.css';
 
 export default function ListItem(props) {
   return props.isDislpay(props.text, props.priority) ? (

@@ -13,6 +13,7 @@ export default class TodoContainer extends React.Component {
       radioPriorityFilter: undefined,
       isPriporityOpen: false,
       isFilterOpen: false,
+      resolverPriority: null,
     };
   }
 
@@ -53,16 +54,14 @@ export default class TodoContainer extends React.Component {
     });
 
     //потом ждем пока пользователь нажмет на одну из кнопок
-    this.promise.then(this.handlerPriorityValue);
+    this.promise.then(this.handlerPriorityValue).then(this.setNewItem);
   };
 
   // не понятно почему не работает вот так promise.then(this.handlerPriorityValue).then(this.setNewItem)
-  handlerPriorityValue = e => {
-    this.promise = new Promise((res, rej) => {
-      if (e !== undefined && e.target.tagName === 'INPUT') {
-        res(e.target.value);
-      }
-    }).then(this.setNewItem);
+  handlerPriorityValue = () => {
+    return new Promise((res, rej) => {
+      this.setState({ resolverPriority: res });
+    });
   };
 
   //обработчик на открытие фильтра
@@ -72,7 +71,7 @@ export default class TodoContainer extends React.Component {
     });
   };
 
-  setNewItem = checkboxValue => {
+  setNewItem = e => {
     // добавим новую туду в массив с туду итемами
     // и отчищаем инпут
     this.setState({
@@ -82,7 +81,7 @@ export default class TodoContainer extends React.Component {
           text: this.state.inputValue,
           id: ++this.counter,
           edit: false,
-          priority: checkboxValue,
+          priority: e,
         },
       ],
       inputValue: '',
@@ -157,6 +156,7 @@ export default class TodoContainer extends React.Component {
   render() {
     return (
       <Todo
+        resolverPriority={this.state.resolverPriority}
         todos={this.state.todos}
         inputValue={this.state.inputValue}
         isDislpay={this.isDislpay}

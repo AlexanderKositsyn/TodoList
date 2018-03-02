@@ -10,6 +10,7 @@ export default function Todo(props) {
   return (
     <div className={classNames.todo}>
       <TodoHeader
+        resolverPriority={props.resolverPriority}
         inputValue={props.inputValue}
         isPriporityOpen={props.isPriporityOpen}
         handlerInputTextTodoItem={props.handlerInputTextTodoItem}
