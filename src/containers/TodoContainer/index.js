@@ -3,19 +3,15 @@ import React from 'react';
 import Todo from 'components/Todo';
 
 export default class TodoContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    // state можно вынести в отдельный json и потом его парсить сюда
-    this.state = {
-      todos: [],
-      inputValue: '',
-      inputValueFilter: '',
-      radioPriorityFilter: undefined,
-      isPriporityOpen: false,
-      isFilterOpen: false,
-      resolverPriority: null,
-    };
-  }
+  state = {
+    todos: [],
+    inputValue: '',
+    inputValueFilter: '',
+    radioPriorityFilter: undefined,
+    isPriporityOpen: false,
+    isFilterOpen: false,
+    resolverPriority: null,
+  };
 
   componentDidMount() {
     //счетчик для айдишников туду item
@@ -57,7 +53,7 @@ export default class TodoContainer extends React.Component {
     this.promise.then(this.handlerPriorityValue).then(this.setNewItem);
   };
 
-  // не понятно почему не работает вот так promise.then(this.handlerPriorityValue).then(this.setNewItem)
+  // сохраним промис в стейте, чтобы потом его клик разрешил
   handlerPriorityValue = () => {
     return new Promise((res, rej) => {
       this.setState({ resolverPriority: res });
@@ -71,7 +67,7 @@ export default class TodoContainer extends React.Component {
     });
   };
 
-  setNewItem = e => {
+  setNewItem = priorityValue => {
     // добавим новую туду в массив с туду итемами
     // и отчищаем инпут
     this.setState({
@@ -81,7 +77,7 @@ export default class TodoContainer extends React.Component {
           text: this.state.inputValue,
           id: ++this.counter,
           edit: false,
-          priority: e,
+          priority: priorityValue,
         },
       ],
       inputValue: '',
